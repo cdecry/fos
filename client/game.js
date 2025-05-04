@@ -47,7 +47,7 @@ async function checkAuth() {
 
 // Logout function
 async function logout() {
-    await fetch("https://localhost:3000/api/auth/logout", { method: "POST", credentials: "include" });
+    await fetch("https://fantage.onrender.com/api/auth/logout", { method: "POST", credentials: "include" });
     console.log("✅ Logged out.");
     window.location.href = "index.html";
 }
@@ -145,7 +145,7 @@ let reconnectAttempts = 0;
 
 function checkServerConnection() {
     //fetch("https://c99a-98-14-219-221.ngrok-free.app/api/ping", { method: "GET", credentials: "include" })
-    fetch("http://localhost:3000/api/ping", { method: "GET", credentials: "include" })
+    fetch("https://fantage.onrender.com/api/ping", { method: "GET", credentials: "include" })
         .then(response => {
             if (!response.ok) throw new Error("Server unreachable");
             if (connectionLost) {

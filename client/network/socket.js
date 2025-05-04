@@ -2,7 +2,7 @@ import { assets, tops, bottoms, shoes, boards } from "../assets/data.js";
 import { getPlayerAvatarData, showConnectionLostMessage, resetConnectionCheck } from "../game.js";
 
 const { Client } = window.Colyseus;
-const client = new Client('ws://localhost:3000'); // Ensure this matches your server address
+const client = new Client('wss://fantage.onrender.com'); // Ensure this matches your server address
 
 // Private hosting
 //const client = new Client("wss://c99a-98-14-219-221.ngrok-free.app");

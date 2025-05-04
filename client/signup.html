@@ -3,111 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Fantage Remake - Sign Up</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('assets/ui/signup_background.jpg');
+            background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background-color: #f4f4f9;
-            margin: 0;
+            overflow: hidden;
         }
-        h2 {
+
+        .logo {
             margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.7));
+            z-index: 10;
         }
-        p {
-            margin-bottom: 5px;
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+        .container {
+            background: linear-gradient(to bottom, #ffffff, #ffecf5);
+            border: 5px solid #ff9ecd;
+            border-radius: 25px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 158, 205, 0.5);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
         }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: url('assets/ui/sparkle.png') repeat;
+            opacity: 0.1;
+            animation: sparkle 5s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes sparkle {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        h1 {
+            color: #ff6b9e;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 107, 158, 0.5);
+        }
+
         .input-container {
             position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
-        .gender-options {
-            display: flex;
-            flex-direction: column;
-            gap: 5px; /* Optional: adds a little space between options */
-        }
+
         input {
-            padding: 10px;
-            width: 250px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
+            padding: 12px 15px;
+            width: 100%;
+            border: 3px solid #ffb3db;
+            border-radius: 15px;
             font-size: 16px;
-            outline: none;
-            transition: border 0.3s ease;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
         }
+
         input:focus {
-            border-color: #007BFF;
+            border-color: #ff3377;
+            outline: none;
+            box-shadow: 0 0 15px rgba(255, 107, 158, 0.7);
         }
+
         .warning-icon {
             display: none;
             position: absolute;
-            right: 10px;
-            color: red;
-            font-size: 18px;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff3377;
+            font-size: 20px;
             cursor: help;
         }
+
         .tooltip {
             visibility: hidden;
-            background-color: #f44336;
+            background-color: #ff3377;
             color: white;
             text-align: center;
-            padding: 5px;
-            border-radius: 4px;
+            padding: 8px 12px;
+            border-radius: 10px;
             position: absolute;
-            bottom: -25px;
-            right: 0;
+            z-index: 1;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
             white-space: nowrap;
-            font-size: 12px;
+            font-size: 14px;
             opacity: 0;
             transition: opacity 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: transparent transparent #ff3377 transparent;
+        }
+
         .input-container:hover .tooltip {
             visibility: visible;
             opacity: 1;
         }
+
         .input-container .warning-icon:hover + .tooltip {
             visibility: visible;
             opacity: 1;
         }
+
         button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            border: none;
-            background-color: #007BFF;
+            background: linear-gradient(to bottom, #ff9ecd, #ff6b9e);
             color: white;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #signup-message {
-            margin-top: 10px;
-            color: red;
+            border: none;
+            border-radius: 15px;
+            padding: 14px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
             font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
         }
+
+        button:hover {
+            background: linear-gradient(to bottom, #ff6b9e, #ff3377);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .terms-container {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        a {
+            color: #ff6b9e;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #ff3377;
+            text-decoration: underline;
+            text-shadow: 0 0 5px rgba(255, 107, 158, 0.5);
+        }
+
+        #signup-message {
+            margin-top: 15px;
+            color: #ff3377;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .animal-decoration {
+            position: absolute;
+            animation: bounce 2s ease infinite;
+            z-index: 5;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .animal-1 {
+            top: 50px;
+            left: -60px;
+            animation-delay: 0.2s;
+        }
+
+        .animal-2 {
+            bottom: 50px;
+            right: -60px;
+            animation-delay: 0.7s;
+        }
+
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4) 70%, rgba(255, 255, 255, 0) 100%);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 15s infinite ease-in;
+            pointer-events: none;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateX(100px) rotate(180deg);
+                opacity: 0.6;
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .flying-star {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 48"><path fill="%23FFD700" d="M25,1 L31,17 L48,17 L35,29 L39,45 L25,36 L11,45 L15,29 L2,17 L19,17 Z"/></svg>');
+            background-size: contain;
+            animation: fly 10s linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fly {
+            0% { 
+                transform: translateX(-100px) translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { 
+                transform: translateX(calc(100vw + 100px)) translateY(-200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .star-1 { top: 15%; animation-delay: 0s; }
+        .star-2 { top: 35%; animation-delay: 3s; }
+        .star-3 { top: 60%; animation-delay: 6s; }
+        .star-4 { top: 75%; animation-delay: 9s; }
+        
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 48"><path fill="%23FFD700" d="M25,1 L31,17 L48,17 L35,29 L39,45 L25,36 L11,45 L15,29 L2,17 L19,17 Z"/></svg>');
+            background-size: contain;
+            z-index: 1;
+            opacity: 0.8;
+            animation: twinkle 5s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 158, 205, 0.3) 0%, rgba(255, 158, 205, 0) 70%);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .gender-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .gender-btn {
+            cursor: pointer;
+            border: 3px solid #ffb3db;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff6b9e;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 0 5px rgba(255, 107, 158, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gender-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            border-color: #ff6b9e;
+        }
+
+        /* Active (selected) state */
+        .gender-btn.active {
+            background: linear-gradient(to bottom, #ff9ecd, #ff6b9e);
+            border-color: #ff6b9e;
+            box-shadow: 0 0 10px rgba(255, 107, 158, 0.5);
+            color: white;
+        }
+
     </style>
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form id="signup-form">
+    <div class="glow"></div>
+    
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+    
+    <div class="flying-star star-1"></div>
+    <div class="flying-star star-2"></div>
+    <div class="flying-star star-3"></div>
+    <div class="flying-star star-4"></div>
+    
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="logo">
+        <img src="assets/ui/logo.png" alt="Fantage Logo" width="300">
+    </div>
+
+    <div class="container">
+        <img src="assets/ui/cute_pet1.png" class="animal-decoration animal-1" width="80">
+        <img src="assets/ui/cute_pet2.png" class="animal-decoration animal-2" width="80">
+        
+        <h1>Create Account</h1>
         <div class="input-container">
             <input type="text" id="signup-username" placeholder="Username (3-14 chars, numbers, _ only)" required>
             <span class="warning-icon">⚠</span>
@@ -126,29 +433,19 @@
             <span class="tooltip" id="password-tooltip"></span>
         </div>
 
-        <div class="input-container">
-            <label>Gender:</label>
-            <div class="gender-options">
-                <input type="radio" id="gender-male" name="gender" value="male">
-                <span>Male</span><br>
-                <input type="radio" id="gender-female" name="gender" value="female" checked>
-                <span>Female</span>
-            </div>
+        <div class="input-container gender-selector">
+            <button type="button" class="gender-btn" data-gender="male">Male</button>
+            <button type="button" class="gender-btn active" data-gender="female">Female</button>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <p>By signing up you have agreed to the</p>
-            <p style="align-items: center;"><a href="/terms.html">Terms and Conditions</a></p>
-        </div>
-
-        <button type="submit">Sign Up</button>
-    </form>
-    <p id="signup-message"></p>
-
-    <p>Already have an account? <a href="/index.html">Log In</a></p>
-    <p>*Currently only female avatars are supported</p>
+        <button type="submit" id="signup-button">Create My Avatar!</button>
+        <div id="signup-message"></div>
+        <p>Already have an account? <a href="/index.html">Log In</a></p>
+        <p style="font-size: 14px; color: #999;">*Currently male avatars have limited support.</p>
+    </div>
 
     <script>
+        
         const usernameInput = document.getElementById("signup-username");
         const usernameTooltip = document.getElementById("username-tooltip");
         const emailInput = document.getElementById("signup-email");
@@ -156,11 +453,43 @@
         const passwordInput = document.getElementById("signup-password");
         const passwordTooltip = document.getElementById("password-tooltip");
         const signupMessage = document.getElementById("signup-message");
-        const maleRadio = document.getElementById('gender-male');
+        const signupButton = document.getElementById("signup-button");
+
+        function createRandomStars() {
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 15; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.width = `${Math.random() * 20 + 10}px`;
+                star.style.height = star.style.width;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        function createMoreBubbles() {
+            const bubblesContainer = document.querySelector('.bubbles');
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.width = `${Math.random() * 50 + 10}px`;
+                bubble.style.height = bubble.style.width;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                bubble.style.animationDelay = `${Math.random() * 10}s`;
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+        
+        window.addEventListener('load', () => {
+            createRandomStars();
+            createMoreBubbles();
+        });
 
         const usernameRegex = /^[a-z0-9_]{3,14}$/;
 
-        // ✅ Remove Errors on Input Change
         document.querySelectorAll("input").forEach(input => {
             input.addEventListener("input", () => {
                 hideWarning(input);
@@ -168,7 +497,15 @@
             });
         });
 
-        // ✅ Real-Time Username Checking
+        const genderButtons = document.querySelectorAll('.gender-btn');
+
+        genderButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                genderButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+
         usernameInput.addEventListener("input", async () => {
             const username = usernameInput.value.trim();
             if (!usernameRegex.test(username)) {
@@ -177,11 +514,26 @@
             }
 
             try {
-                const response = await fetch(`/api/auth/check-username/${username}`);
+                const response = await fetch(`https://fantage.onrender.com/api/auth/check-username/${username}`);
                 const result = await response.json();
 
                 if (result.available) {
                     hideWarning(usernameInput);
+                    
+                    const sparkle = document.createElement('div');
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.right = '10px';
+                    sparkle.style.top = '50%';
+                    sparkle.style.transform = 'translateY(-50%)';
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.color = '#4CAF50';
+                    sparkle.style.fontSize = '16px';
+                    sparkle.style.animation = 'float 1s ease-in-out infinite';
+                    usernameInput.parentNode.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        sparkle.remove();
+                    }, 2000);
                 } else {
                     showWarning(usernameInput, usernameTooltip, "Username is already taken.");
                 }
@@ -190,7 +542,6 @@
             }
         });
 
-        // ✅ Validate Email
         emailInput.addEventListener("input", () => {
             if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) {
                 showWarning(emailInput, emailTooltip, "Enter a valid email address.");
@@ -199,7 +550,6 @@
             }
         });
 
-        // ✅ Validate Password
         passwordInput.addEventListener("input", () => {
             if (passwordInput.value.length < 6) {
                 showWarning(passwordInput, passwordTooltip, "Password must be at least 6 characters.");
@@ -208,13 +558,13 @@
             }
         });
 
-        document.getElementById("signup-form").addEventListener("submit", async (e) => {
+        signupButton.addEventListener("click", async (e) => {
             e.preventDefault();
-            
+
             const username = usernameInput.value.trim();
             const email = emailInput.value.trim();
             const password = passwordInput.value;
-            const gender = maleRadio.checked ? "male" : "female";
+            const gender = document.querySelector('.gender-btn.active').dataset.gender;
 
             if (!usernameRegex.test(username)) {
                 showWarning(usernameInput, usernameTooltip, "Invalid format: 3-14 letters, numbers, _ only.");
@@ -231,8 +581,11 @@
                 return;
             }
 
+            signupButton.disabled = true;
+            signupButton.textContent = "Creating avatar...";
+
             try {
-                const response = await fetch("/api/auth/signup", {
+                const response = await fetch("https://fantage.onrender.com/api/auth/signup", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -243,11 +596,21 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    signupMessage.innerText = "Account created! Redirecting...";
+                    signupMessage.style.color = "#4CAF50";
+                    signupMessage.innerText = "Yay! Account created! Taking you to Fantage...";
+                    
+                    confetti();
+                    
+                    document.body.style.transition = "all 0.5s ease";
+                    document.body.style.filter = "brightness(200%)";
+                    
                     setTimeout(() => {
                         window.location.href = "/index.html";
                     }, 2000);
                 } else {
+                    signupButton.disabled = false;
+                    signupButton.textContent = "Create My Avatar!";
+                    
                     if (result.message.includes("Username is already taken")) {
                         showWarning(usernameInput, usernameTooltip, "This username is already taken.");
                     } else if (result.message.includes("Email is already in use")) {
@@ -257,6 +620,8 @@
                     }
                 }
             } catch (error) {
+                signupButton.disabled = false;
+                signupButton.textContent = "Create My Avatar!";
                 signupMessage.innerText = `Error: ${error.message}`;
             }
         });
@@ -264,6 +629,13 @@
         function showWarning(inputField, tooltip, message) {
             tooltip.innerText = message;
             inputField.nextElementSibling.style.display = "inline"; // Show warning icon
+            inputField.style.borderColor = "#ff3377";
+            
+            
+            inputField.style.animation = "wiggle 0.5s ease";
+            setTimeout(() => {
+                inputField.style.animation = "";
+            }, 500);
         }
 
         function hideWarning(inputField) {
@@ -277,7 +649,49 @@
             if (tooltip) {
                 tooltip.innerText = "";
             }
+            
+            inputField.style.borderColor = "";
         }
+
+        function confetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                confetti.style.boxShadow = '0 0 5px rgba(0,0,0,0.2)';
+                confetti.style.borderRadius = '50%';
+                confetti.style.zIndex = '1000';
+                confetti.style.top = '-10px';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+                });
+                
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
+            }
+        }
+        
+        
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes wiggle {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
+                }
+            </style>
+        `);
     </script>
 </body>
 </html>

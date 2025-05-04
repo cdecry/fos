@@ -14,7 +14,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cookieParser());
 //app.use(cors({ origin: "https://c99a-98-14-219-221.ngrok-free.app", credentials: true }));
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "https://fantage.onrender.com/", credentials: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
